@@ -2,6 +2,7 @@
 function getNumbers() {
   return new Promise((resolve) => {
     setTimeout(() => {
+      console.log('Step 1: Resolved initial array: [1, 2, 3, 4]');
       resolve([1, 2, 3, 4]);
     }, 3000);
   });
@@ -11,32 +12,27 @@ function getNumbers() {
 function updateOutput(content) {
   const outputDiv = document.getElementById('output');
   outputDiv.textContent = content;
-  console.log('Output updated:', content); // Log for debugging
+  console.log('Step 2: Updated output:', content);
 }
 
 // Main function using promise chaining
 getNumbers()
   .then((numbers) => {
-    // Log the initial array
-    console.log('Initial array:', numbers);
-
-    // Filter out odd numbers after 1 second
     return new Promise((resolve) => {
       setTimeout(() => {
         const evenNumbers = numbers.filter((num) => num % 2 === 0);
-        console.log('Filtered even numbers:', evenNumbers); // Log for debugging
-        updateOutput(evenNumbers.join(', ')); // Update output div
+        console.log('Step 3: Filtered even numbers:', evenNumbers);
+        updateOutput(evenNumbers.join(', ')); // Update output div with filtered numbers
         resolve(evenNumbers);
       }, 1000);
     });
   })
   .then((evenNumbers) => {
-    // Multiply even numbers by 2 after 2 seconds
     return new Promise((resolve) => {
       setTimeout(() => {
         const doubledNumbers = evenNumbers.map((num) => num * 2);
-        console.log('Doubled numbers:', doubledNumbers); // Log for debugging
-        updateOutput(doubledNumbers.join(', ')); // Update output div
+        console.log('Step 4: Doubled numbers:', doubledNumbers);
+        updateOutput(doubledNumbers.join(', ')); // Update output div with doubled numbers
         resolve(doubledNumbers);
       }, 2000);
     });
